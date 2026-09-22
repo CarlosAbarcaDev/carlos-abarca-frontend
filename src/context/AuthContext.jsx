@@ -39,8 +39,8 @@ export function AuthProvider({ children }) {
     }
   }, [])
 
-  const login = useCallback(async (email, password) => {
-    const response = await api.post('/login', { email, password })
+  const login = useCallback(async (user, password) => {
+    const response = await api.post('/login', { user, password })
     const { access_token, user: sessionUser } = response.data
     setToken(access_token)
     setUser(sessionUser)

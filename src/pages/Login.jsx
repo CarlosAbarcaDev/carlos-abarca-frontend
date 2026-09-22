@@ -7,7 +7,7 @@ function Login() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
@@ -22,14 +22,14 @@ function Login() {
     setSubmitting(true)
 
     try {
-      await login(email.trim(), password)
+      await login(username.trim(), password)
       const target = location.state?.from ?? '/'
       navigate(target, { replace: true })
     } catch (err) {
       const status = err.response?.status
       if (status === 422) {
         const details = err.response?.data?.errors
-        if (details?.email || details?.password) {
+        if (details?.user || details?.password) {
           setError('Credenciales incorrectas.')
         } else {
           setError('Verifique los campos del formulario.')
@@ -61,17 +61,17 @@ function Login() {
           )}
 
           <div>
-            <label htmlFor="email" className="mb-1 block text-sm font-medium text-slate-700">
-              Correo electronico
+            <label htmlFor="user" className="mb-1 block text-sm font-medium text-slate-700">
+              Usuario
             </label>
             <input
-              id="email"
-              type="email"
-              autoComplete="email"
+              id="user"
+              type="text"
+              autoComplete="username"
               autoFocus
               required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
               className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
             />
           </div>
