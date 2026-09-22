@@ -43,62 +43,72 @@ function Login() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-6">
-      <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-base font-bold text-white">
-          CA
-        </div>
-        <h1 className="mt-5 text-2xl font-semibold text-slate-900">Iniciar sesion</h1>
-        <p className="mt-1 text-sm text-slate-500">
-          Ingrese sus credenciales para acceder al sistema.
-        </p>
+    <div className="flex min-h-screen">
+      <div className="flex w-full items-center justify-center px-6 lg:w-1/2">
+        <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-base font-bold text-white">
+            CA
+          </div>
+          <h1 className="mt-5 text-2xl font-semibold text-slate-900">Iniciar sesion</h1>
+          <p className="mt-1 text-sm text-slate-500">
+            Ingrese sus credenciales para acceder al sistema.
+          </p>
 
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-          {error && (
-            <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              {error}
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+            {error && (
+              <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {error}
+              </div>
+            )}
+
+            <div>
+              <label htmlFor="user" className="mb-1 block text-sm font-medium text-slate-700">
+                Usuario
+              </label>
+              <input
+                id="user"
+                type="text"
+                autoComplete="username"
+                autoFocus
+                required
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+              />
             </div>
-          )}
 
-          <div>
-            <label htmlFor="user" className="mb-1 block text-sm font-medium text-slate-700">
-              Usuario
-            </label>
-            <input
-              id="user"
-              type="text"
-              autoComplete="username"
-              autoFocus
-              required
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
-            />
-          </div>
+            <div>
+              <label htmlFor="password" className="mb-1 block text-sm font-medium text-slate-700">
+                Contrasena
+              </label>
+              <input
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+              />
+            </div>
 
-          <div>
-            <label htmlFor="password" className="mb-1 block text-sm font-medium text-slate-700">
-              Contrasena
-            </label>
-            <input
-              id="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
-            />
-          </div>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="flex w-full items-center justify-center rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {submitting ? 'Ingresando...' : 'Ingresar'}
+            </button>
+          </form>
+        </div>
+      </div>
 
-          <button
-            type="submit"
-            disabled={submitting}
-            className="flex w-full items-center justify-center rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {submitting ? 'Ingresando...' : 'Ingresar'}
-          </button>
-        </form>
+      <div className="relative hidden flex-1 overflow-hidden lg:block">
+        <img
+          src="/login-hero.jpg"
+          alt="Cultivos en el campo"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
       </div>
     </div>
   )
