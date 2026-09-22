@@ -153,28 +153,31 @@ function Cultivos() {
       .finally(() => setDeleting(false))
   }
 
+  const inputClass =
+    'w-full rounded-lg border border-line-soft bg-canvas px-3 py-2 text-sm text-ink outline-none transition placeholder:text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent'
+
   return (
     <div className="space-y-6">
       <header className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Cultivos</h1>
-          <p className="mt-1 text-slate-600">
+          <h1 className="text-2xl font-semibold text-ink">Cultivos</h1>
+          <p className="mt-1 text-muted">
             Registro de cultivos asociados a cada lote.
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <label className="flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-700">
+          <label className="flex cursor-pointer items-center gap-2 text-sm font-medium text-soft">
             <input
               type="checkbox"
               checked={onlyActive}
               onChange={(e) => setOnlyActive(e.target.checked)}
-              className="h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+              className="h-4 w-4 rounded border-line-soft bg-canvas text-accent focus:ring-accent"
             />
             Solo activos
           </label>
           <button
             onClick={openCreate}
-            className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-700"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-accent-deep"
           >
             Nuevo cultivo
           </button>
@@ -182,73 +185,45 @@ function Cultivos() {
       </header>
 
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger-ink">
           {error}
         </div>
       )}
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <table className="min-w-full divide-y divide-slate-200">
-          <thead className="bg-slate-50">
+      <div className="overflow-hidden rounded-xl border border-line bg-panel">
+        <table className="min-w-full divide-y divide-line">
+          <thead className="bg-panel-2">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Nombre
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Lote
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Variedad
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Fecha siembra
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Cosecha estimada
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Area sembrada
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Estado
-              </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Acciones
-              </th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Nombre</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Lote</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Variedad</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Fecha siembra</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Cosecha estimada</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Area sembrada</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Estado</th>
+              <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest text-muted">Acciones</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200 bg-white">
+          <tbody className="divide-y divide-line bg-panel">
             {loading ? (
               <tr>
-                <td colSpan="8" className="px-4 py-10 text-center text-sm text-slate-500">
-                  Cargando...
-                </td>
+                <td colSpan="8" className="px-4 py-10 text-center text-sm text-muted">Cargando...</td>
               </tr>
             ) : cultivos.length === 0 ? (
               <tr>
-                <td colSpan="8" className="px-4 py-10 text-center text-sm text-slate-500">
-                  No hay cultivos registrados.
-                </td>
+                <td colSpan="8" className="px-4 py-10 text-center text-sm text-muted">No hay cultivos registrados.</td>
               </tr>
             ) : (
               cultivos.map((cultivo) => (
-                <tr key={cultivo.id} className="transition-colors hover:bg-slate-50">
-                  <td className="px-4 py-3 text-sm font-medium text-slate-900">
-                    {cultivo.nombre}
-                  </td>
-                  <td className="px-4 py-3 text-sm text-slate-600">
+                <tr key={cultivo.id} className="transition-colors hover:bg-panel-2">
+                  <td className="px-4 py-3 text-sm font-medium text-ink">{cultivo.nombre}</td>
+                  <td className="px-4 py-3 text-sm text-soft">
                     {cultivo.lote?.nombre ?? `Lote ${cultivo.lote_id}`}
                   </td>
-                  <td className="px-4 py-3 text-sm text-slate-600">
-                    {cultivo.variedad || '-'}
-                  </td>
-                  <td className="px-4 py-3 text-sm text-slate-600">
-                    {cultivo.fecha_siembra || '-'}
-                  </td>
-                  <td className="px-4 py-3 text-sm text-slate-600">
-                    {cultivo.fecha_cosecha_estimada || '-'}
-                  </td>
-                  <td className="px-4 py-3 text-sm text-slate-600">
+                  <td className="px-4 py-3 text-sm text-soft">{cultivo.variedad || '-'}</td>
+                  <td className="px-4 py-3 text-sm text-soft">{cultivo.fecha_siembra || '-'}</td>
+                  <td className="px-4 py-3 text-sm text-soft">{cultivo.fecha_cosecha_estimada || '-'}</td>
+                  <td className="px-4 py-3 text-sm text-soft">
                     {cultivo.area_sembrada === null || cultivo.area_sembrada === undefined
                       ? '-'
                       : `${cultivo.area_sembrada} ha`}
@@ -258,8 +233,8 @@ function Cultivos() {
                       onClick={() => toggleStatus(cultivo)}
                       className={`rounded-full px-3 py-1 text-xs font-semibold ${
                         cultivo.estatus
-                          ? 'bg-emerald-50 text-emerald-700'
-                          : 'bg-slate-100 text-slate-600'
+                          ? 'bg-accent-green/20 text-neon'
+                          : 'bg-panel-2 text-muted'
                       }`}
                       title="Cambiar estado"
                     >
@@ -270,13 +245,13 @@ function Cultivos() {
                     <div className="inline-flex gap-2">
                       <button
                         onClick={() => openEdit(cultivo)}
-                        className="rounded-lg border border-slate-300 px-3 py-1 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                        className="rounded-lg border border-line-soft px-3 py-1 text-sm font-medium text-soft transition-colors hover:bg-panel-2 hover:text-ink"
                       >
                         Editar
                       </button>
                       <button
                         onClick={() => setDeletingCultivo(cultivo)}
-                        className="rounded-lg border border-red-200 px-3 py-1 text-sm font-medium text-red-600 transition-colors hover:bg-red-50"
+                        className="rounded-lg border border-danger/30 px-3 py-1 text-sm font-medium text-danger-ink transition-colors hover:bg-danger/10"
                       >
                         Eliminar
                       </button>
@@ -290,43 +265,37 @@ function Cultivos() {
       </div>
 
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
-          <div className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-xl">
-            <h2 className="text-lg font-semibold text-slate-900">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-lg rounded-2xl border border-line bg-panel p-6 shadow-2xl shadow-black/40">
+            <h2 className="text-lg font-semibold text-ink">
               {editing ? 'Editar cultivo' : 'Nuevo cultivo'}
             </h2>
 
             <form onSubmit={handleSubmit} className="mt-4 space-y-4">
               {errorForm && (
-                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                <div className="rounded-lg border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger-ink">
                   {errorForm}
                 </div>
               )}
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
-                  Lote
-                </label>
+                <label className="mb-1 block text-sm font-medium text-soft">Lote</label>
                 <select
                   name="lote_id"
                   value={form.lote_id}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className={inputClass}
                 >
                   <option value="">Seleccione un lote</option>
                   {lotes.map((lote) => (
-                    <option key={lote.id} value={lote.id}>
-                      {lote.nombre}
-                    </option>
+                    <option key={lote.id} value={lote.id}>{lote.nombre}</option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
-                  Nombre
-                </label>
+                <label className="mb-1 block text-sm font-medium text-soft">Nombre</label>
                 <input
                   name="nombre"
                   value={form.nombre}
@@ -334,56 +303,48 @@ function Cultivos() {
                   required
                   maxLength={200}
                   placeholder="Ej: Maiz verano"
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className={inputClass}
                 />
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
-                  Variedad
-                </label>
+                <label className="mb-1 block text-sm font-medium text-soft">Variedad</label>
                 <input
                   name="variedad"
                   value={form.variedad}
                   onChange={handleChange}
                   maxLength={150}
                   placeholder="Ej: DK 4400"
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className={inputClass}
                 />
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-slate-700">
-                    Fecha siembra
-                  </label>
+                  <label className="mb-1 block text-sm font-medium text-soft">Fecha siembra</label>
                   <input
                     name="fecha_siembra"
                     type="date"
                     value={form.fecha_siembra}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className={inputClass}
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-slate-700">
-                    Cosecha estimada
-                  </label>
+                  <label className="mb-1 block text-sm font-medium text-soft">Cosecha estimada</label>
                   <input
                     name="fecha_cosecha_estimada"
                     type="date"
                     min={form.fecha_siembra || undefined}
                     value={form.fecha_cosecha_estimada}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className={inputClass}
                   />
                 </div>
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
-                  Area sembrada (ha)
-                </label>
+                <label className="mb-1 block text-sm font-medium text-soft">Area sembrada (ha)</label>
                 <input
                   name="area_sembrada"
                   type="number"
@@ -392,7 +353,7 @@ function Cultivos() {
                   value={form.area_sembrada}
                   onChange={handleChange}
                   placeholder="Ej: 40"
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className={inputClass}
                 />
               </div>
 
@@ -400,14 +361,14 @@ function Cultivos() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-200"
+                  className="rounded-lg bg-panel-2 px-4 py-2 text-sm font-semibold text-soft transition-colors hover:bg-line hover:text-ink"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
+                  className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-accent-deep disabled:opacity-50"
                 >
                   {saving ? 'Guardando...' : editing ? 'Guardar cambios' : 'Crear cultivo'}
                 </button>
@@ -418,27 +379,25 @@ function Cultivos() {
       )}
 
       {deletingCultivo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
-          <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-xl">
-            <h2 className="text-lg font-semibold text-slate-900">Eliminar cultivo</h2>
-            <p className="mt-2 text-sm text-slate-600">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-md rounded-2xl border border-line bg-panel p-6 shadow-2xl shadow-black/40">
+            <h2 className="text-lg font-semibold text-ink">Eliminar cultivo</h2>
+            <p className="mt-2 text-sm text-soft">
               Esta accion eliminara permanentemente el cultivo{' '}
-              <span className="font-semibold text-slate-900">
-                {deletingCultivo.nombre}
-              </span>
+              <span className="font-semibold text-ink">{deletingCultivo.nombre}</span>
               . Esta operacion no se puede deshacer.
             </p>
             <div className="mt-4 flex justify-end gap-3">
               <button
                 onClick={() => setDeletingCultivo(null)}
-                className="rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-200"
+                className="rounded-lg bg-panel-2 px-4 py-2 text-sm font-semibold text-soft transition-colors hover:bg-line hover:text-ink"
               >
                 Cancelar
               </button>
               <button
                 onClick={confirmDelete}
                 disabled={deleting}
-                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-50"
+                className="rounded-lg bg-danger px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-danger/90 disabled:opacity-50"
               >
                 {deleting ? 'Eliminando...' : 'Eliminar'}
               </button>

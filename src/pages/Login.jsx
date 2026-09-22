@@ -42,27 +42,30 @@ function Login() {
     }
   }
 
+  const inputClass =
+    'w-full rounded-lg border border-line-soft bg-canvas px-3 py-2 text-sm text-ink outline-none transition placeholder:text-muted/60 focus:border-accent focus:ring-2 focus:ring-accent/30'
+
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-canvas text-ink">
       <div className="flex w-full items-center justify-center px-6 lg:w-1/2">
-        <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-600 text-base font-bold text-white">
+        <div className="w-full max-w-md rounded-2xl border border-line bg-gradient-to-b from-panel-2 to-panel p-8 shadow-2xl shadow-black/40">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent text-base font-bold text-ink ring-1 ring-line-soft">
             CA
           </div>
-          <h1 className="mt-5 text-2xl font-semibold text-slate-900">Iniciar sesion</h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <h1 className="mt-5 text-2xl font-semibold text-ink">Iniciar sesion</h1>
+          <p className="mt-1 text-sm text-muted">
             Ingrese sus credenciales para acceder al sistema.
           </p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             {error && (
-              <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              <div className="rounded-lg border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger-ink">
                 {error}
               </div>
             )}
 
             <div>
-              <label htmlFor="user" className="mb-1 block text-sm font-medium text-slate-700">
+              <label htmlFor="user" className="mb-1 block text-sm font-medium text-soft">
                 Usuario
               </label>
               <input
@@ -73,12 +76,12 @@ function Login() {
                 required
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                className={inputClass}
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="mb-1 block text-sm font-medium text-slate-700">
+              <label htmlFor="password" className="mb-1 block text-sm font-medium text-soft">
                 Contrasena
               </label>
               <input
@@ -88,14 +91,14 @@ function Login() {
                 required
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                className={inputClass}
               />
             </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className="flex w-full items-center justify-center rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
+              className="flex w-full items-center justify-center rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-accent-deep disabled:cursor-not-allowed disabled:opacity-60"
             >
               {submitting ? 'Ingresando...' : 'Ingresar'}
             </button>
@@ -109,6 +112,7 @@ function Login() {
           alt="Cultivos en el campo"
           className="absolute inset-0 h-full w-full object-cover"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-canvas via-canvas/40 to-canvas/10" />
       </div>
     </div>
   )

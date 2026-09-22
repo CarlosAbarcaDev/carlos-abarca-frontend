@@ -195,30 +195,33 @@ function Labores() {
   }
 
   const filterInputClass =
-    'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500'
+    'w-full rounded-lg border border-line-soft bg-canvas px-3 py-2 text-sm text-ink outline-none transition placeholder:text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent'
+
+  const inputClass =
+    'w-full rounded-lg border border-line-soft bg-canvas px-3 py-2 text-sm text-ink outline-none transition placeholder:text-muted/60 focus:border-accent focus:ring-1 focus:ring-accent'
 
   return (
     <div className="space-y-6">
       <header className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Labores</h1>
-          <p className="mt-1 text-slate-600">
+          <h1 className="text-2xl font-semibold text-ink">Labores</h1>
+          <p className="mt-1 text-muted">
             Registro de labores agricolas realizadas en los cultivos.
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <label className="flex cursor-pointer items-center gap-2 text-sm font-medium text-slate-700">
+          <label className="flex cursor-pointer items-center gap-2 text-sm font-medium text-soft">
             <input
               type="checkbox"
               checked={onlyActive}
               onChange={(e) => setOnlyActive(e.target.checked)}
-              className="h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+              className="h-4 w-4 rounded border-line-soft bg-canvas text-accent focus:ring-accent"
             />
             Solo activas
           </label>
           <button
             onClick={openCreate}
-            className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-700"
+            className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-accent-deep"
           >
             Nueva labor
           </button>
@@ -226,17 +229,15 @@ function Labores() {
       </header>
 
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger-ink">
           {error}
         </div>
       )}
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="rounded-xl border border-line bg-panel p-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-700">
-              Cultivo
-            </label>
+            <label className="mb-1 block text-sm font-medium text-soft">Cultivo</label>
             <select
               name="cultivo_id"
               value={filters.cultivo_id}
@@ -252,9 +253,7 @@ function Labores() {
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-700">
-              Responsable
-            </label>
+            <label className="mb-1 block text-sm font-medium text-soft">Responsable</label>
             <select
               name="responsable_id"
               value={filters.responsable_id}
@@ -270,9 +269,7 @@ function Labores() {
             </select>
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-700">
-              Desde
-            </label>
+            <label className="mb-1 block text-sm font-medium text-soft">Desde</label>
             <input
               name="desde"
               type="date"
@@ -282,9 +279,7 @@ function Labores() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-700">
-              Hasta
-            </label>
+            <label className="mb-1 block text-sm font-medium text-soft">Hasta</label>
             <input
               name="hasta"
               type="date"
@@ -296,7 +291,7 @@ function Labores() {
           <div className="flex items-end">
             <button
               onClick={clearFilters}
-              className="w-full rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+              className="w-full rounded-lg border border-line-soft bg-panel-2 px-4 py-2 text-sm font-medium text-soft transition-colors hover:bg-line hover:text-ink"
             >
               Limpiar filtros
             </button>
@@ -304,48 +299,28 @@ function Labores() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <table className="min-w-full divide-y divide-slate-200">
-          <thead className="bg-slate-50">
+      <div className="overflow-hidden rounded-xl border border-line bg-panel">
+        <table className="min-w-full divide-y divide-line">
+          <thead className="bg-panel-2">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Tipo
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Cultivo
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Descripcion
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Fecha
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Costo
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Responsable
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Estado
-              </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Acciones
-              </th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Tipo</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Cultivo</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Descripcion</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Fecha</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Costo</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Responsable</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-muted">Estado</th>
+              <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest text-muted">Acciones</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200 bg-white">
+          <tbody className="divide-y divide-line bg-panel">
             {loading ? (
               <tr>
-                <td colSpan="8" className="px-4 py-10 text-center text-sm text-slate-500">
-                  Cargando...
-                </td>
+                <td colSpan="8" className="px-4 py-10 text-center text-sm text-muted">Cargando...</td>
               </tr>
             ) : visibleLabores.length === 0 ? (
               <tr>
-                <td colSpan="8" className="px-4 py-10 text-center text-sm text-slate-500">
-                  No hay labores registradas.
-                </td>
+                <td colSpan="8" className="px-4 py-10 text-center text-sm text-muted">No hay labores registradas.</td>
               </tr>
             ) : (
               visibleLabores.map((labor) => {
@@ -359,40 +334,25 @@ function Labores() {
                   .filter(Boolean)
                   .join(' - ')
                 return (
-                  <tr
-                    key={labor.id}
-                    className="transition-colors hover:bg-slate-50"
-                  >
-                    <td className="px-4 py-3 text-sm font-medium text-slate-900">
-                      {labor.tipo}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-slate-600">
-                      <div className="font-medium text-slate-900">
-                        {nombreCultivo}
-                      </div>
+                  <tr key={labor.id} className="transition-colors hover:bg-panel-2">
+                    <td className="px-4 py-3 text-sm font-medium text-ink">{labor.tipo}</td>
+                    <td className="px-4 py-3 text-sm text-soft">
+                      <div className="font-medium text-ink">{nombreCultivo}</div>
                       {trail && (
-                        <div className="text-xs text-slate-400">{trail}</div>
+                        <div className="text-xs text-muted">{trail}</div>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-sm text-slate-600">
-                      {labor.descripcion || '-'}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-slate-600">
-                      {labor.fecha || '-'}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-slate-600">
-                      {formatMoney(labor.costo)}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-slate-600">
-                      {labor.responsable?.nombre ?? '-'}
-                    </td>
+                    <td className="px-4 py-3 text-sm text-soft">{labor.descripcion || '-'}</td>
+                    <td className="px-4 py-3 text-sm text-soft">{labor.fecha || '-'}</td>
+                    <td className="px-4 py-3 text-sm text-soft">{formatMoney(labor.costo)}</td>
+                    <td className="px-4 py-3 text-sm text-soft">{labor.responsable?.nombre ?? '-'}</td>
                     <td className="px-4 py-3">
                       <button
                         onClick={() => toggleStatus(labor)}
                         className={`rounded-full px-3 py-1 text-xs font-semibold ${
                           labor.estatus
-                            ? 'bg-emerald-50 text-emerald-700'
-                            : 'bg-slate-100 text-slate-600'
+                            ? 'bg-accent-green/20 text-neon'
+                            : 'bg-panel-2 text-muted'
                         }`}
                         title="Cambiar estado"
                       >
@@ -403,13 +363,13 @@ function Labores() {
                       <div className="inline-flex gap-2">
                         <button
                           onClick={() => openEdit(labor)}
-                          className="rounded-lg border border-slate-300 px-3 py-1 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                          className="rounded-lg border border-line-soft px-3 py-1 text-sm font-medium text-soft transition-colors hover:bg-panel-2 hover:text-ink"
                         >
                           Editar
                         </button>
                         <button
                           onClick={() => setDeletingLabor(labor)}
-                          className="rounded-lg border border-red-200 px-3 py-1 text-sm font-medium text-red-600 transition-colors hover:bg-red-50"
+                          className="rounded-lg border border-danger/30 px-3 py-1 text-sm font-medium text-danger-ink transition-colors hover:bg-danger/10"
                         >
                           Eliminar
                         </button>
@@ -424,30 +384,28 @@ function Labores() {
       </div>
 
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
-          <div className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-xl">
-            <h2 className="text-lg font-semibold text-slate-900">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-lg rounded-2xl border border-line bg-panel p-6 shadow-2xl shadow-black/40">
+            <h2 className="text-lg font-semibold text-ink">
               {editing ? 'Editar labor' : 'Nueva labor'}
             </h2>
 
             <form onSubmit={handleSubmit} className="mt-4 space-y-4">
               {errorForm && (
-                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                <div className="rounded-lg border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger-ink">
                   {errorForm}
                 </div>
               )}
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-slate-700">
-                    Cultivo
-                  </label>
+                  <label className="mb-1 block text-sm font-medium text-soft">Cultivo</label>
                   <select
                     name="cultivo_id"
                     value={form.cultivo_id}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className={inputClass}
                   >
                     <option value="">Seleccione un cultivo</option>
                     {cultivos.map((cultivo) => (
@@ -458,14 +416,12 @@ function Labores() {
                   </select>
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-slate-700">
-                    Responsable
-                  </label>
+                  <label className="mb-1 block text-sm font-medium text-soft">Responsable</label>
                   <select
                     name="responsable_id"
                     value={form.responsable_id}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className={inputClass}
                   >
                     <option value="">Sin asignar</option>
                     {responsables.map((responsable) => (
@@ -478,9 +434,7 @@ function Labores() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
-                  Tipo de labor
-                </label>
+                <label className="mb-1 block text-sm font-medium text-soft">Tipo de labor</label>
                 <input
                   name="tipo"
                   value={form.tipo}
@@ -488,42 +442,36 @@ function Labores() {
                   required
                   maxLength={80}
                   placeholder="Ej: Riego, Fumigacion, Cosecha"
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className={inputClass}
                 />
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-slate-700">
-                  Descripcion
-                </label>
+                <label className="mb-1 block text-sm font-medium text-soft">Descripcion</label>
                 <textarea
                   name="descripcion"
                   value={form.descripcion}
                   onChange={handleChange}
                   rows="3"
                   placeholder="Detalle de la labor realizada"
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className={inputClass}
                 />
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-slate-700">
-                    Fecha
-                  </label>
+                  <label className="mb-1 block text-sm font-medium text-soft">Fecha</label>
                   <input
                     name="fecha"
                     type="date"
                     value={form.fecha}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className={inputClass}
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-medium text-slate-700">
-                    Costo
-                  </label>
+                  <label className="mb-1 block text-sm font-medium text-soft">Costo</label>
                   <input
                     name="costo"
                     type="number"
@@ -532,7 +480,7 @@ function Labores() {
                     value={form.costo}
                     onChange={handleChange}
                     placeholder="Ej: 250000.00"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className={inputClass}
                   />
                 </div>
               </div>
@@ -541,14 +489,14 @@ function Labores() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-200"
+                  className="rounded-lg bg-panel-2 px-4 py-2 text-sm font-semibold text-soft transition-colors hover:bg-line hover:text-ink"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 disabled:opacity-50"
+                  className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-accent-deep disabled:opacity-50"
                 >
                   {saving ? 'Guardando...' : editing ? 'Guardar cambios' : 'Crear labor'}
                 </button>
@@ -559,27 +507,25 @@ function Labores() {
       )}
 
       {deletingLabor && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
-          <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-xl">
-            <h2 className="text-lg font-semibold text-slate-900">Eliminar labor</h2>
-            <p className="mt-2 text-sm text-slate-600">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-md rounded-2xl border border-line bg-panel p-6 shadow-2xl shadow-black/40">
+            <h2 className="text-lg font-semibold text-ink">Eliminar labor</h2>
+            <p className="mt-2 text-sm text-soft">
               Esta accion eliminara permanentemente la labor{' '}
-              <span className="font-semibold text-slate-900">
-                {deletingLabor.tipo}
-              </span>{' '}
-              del {deletingLabor.fecha}. Esta operacion no se puede deshacer.
+              <span className="font-semibold text-ink">{deletingLabor.tipo}</span>
+              {' '}del {deletingLabor.fecha}. Esta operacion no se puede deshacer.
             </p>
             <div className="mt-4 flex justify-end gap-3">
               <button
                 onClick={() => setDeletingLabor(null)}
-                className="rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-200"
+                className="rounded-lg bg-panel-2 px-4 py-2 text-sm font-semibold text-soft transition-colors hover:bg-line hover:text-ink"
               >
                 Cancelar
               </button>
               <button
                 onClick={confirmDelete}
                 disabled={deleting}
-                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-50"
+                className="rounded-lg bg-danger px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-danger/90 disabled:opacity-50"
               >
                 {deleting ? 'Eliminando...' : 'Eliminar'}
               </button>
